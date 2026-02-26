@@ -1,0 +1,14 @@
+.env
+/vendor/
+/storage/*.sqlite
+/storage/*.log
+*.log
+.DS_Store
+/tmp/
+.vscode/
+.idea/
+.gemini/
+.agents/
+.agent/
+_agents/
+_agent/
