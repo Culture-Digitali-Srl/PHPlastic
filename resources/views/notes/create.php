@@ -1,1 +1,0 @@
-<h1>Create Note</h1> <form method='POST' action='/notes'> @csrf <input type='text' name='title' placeholder='Title'> <textarea name='content' placeholder='Content'></textarea> <button type='submit'>Create</button> </form>

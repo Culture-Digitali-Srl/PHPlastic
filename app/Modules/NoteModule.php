@@ -1,1 +1,0 @@
-<?php namespace App\Modules; use App\Core\Route; class NoteModule { public function register() { Route::get('/notes', 'NoteController@index'); Route::get('/notes/create', 'NoteController@create'); Route::post('/notes', 'NoteController@store'); } }
