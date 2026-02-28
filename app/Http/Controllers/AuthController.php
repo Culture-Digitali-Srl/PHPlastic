@@ -9,16 +9,16 @@ use App\Core\Auth\AuthManager;
 use App\Core\Audit\AuditLogger;
 
 /**
- * Controller per la gestione di Login e Logout
+ * Controller for Login and Logout management
  */
 class AuthController
 {
     /**
-     * Mostra il form di login
+     * Show the login form
      */
     public function showLoginForm(): void
     {
-        // Se già loggato, reindirizza
+        // If already logged in, redirect
         if (AuthManager::isLoggedIn()) {
             $this->redirect('admin');
             return;
@@ -32,38 +32,38 @@ class AuthController
     }
 
     /**
-     * Elabora il tentativo di login
+     * Process the login attempt
      */
     public function login(): void
     {
-        // Controllo manuale temporaneo se form non arriva
+        // Manual check if form doesn't arrive as POST
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             $this->redirect('login');
             return;
         }
 
-        // Valida CSRF Base
+        // Validate CSRF token
         if (!Security::validateCsrfToken($_POST['csrf_token'] ?? null)) {
-            $this->showError('Sessione scaduta o form non valido. Riprova.');
+            $this->showError('Session expired or invalid form. Please try again.');
             return;
         }
 
         $email = $_POST['email'] ?? '';
         $password = $_POST['password'] ?? '';
 
-        // Tenta auth
+        // Attempt Auth
         if (AuthManager::attempt($email, $password)) {
             AuditLogger::log('user_login', 'users', $_SESSION['user_id'], ['email' => $email]);
             $this->redirect('admin');
         } else {
-            // Un utente fallisce il login. Logghiamo l'evento specificando la mail tentata (senza password!)
+            // A user failed to login. Log the event specifying the attempted email (no password!)
             AuditLogger::log('user_login_failed', null, null, ['email_attempt' => $email]);
-            $this->showError('Credenziali non valide.');
+            $this->showError('Invalid credentials.');
         }
     }
 
     /**
-     * Effettua il logout dell'utente corrente
+     * Logs out the current user
      */
     public function logout(): void
     {

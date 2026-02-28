@@ -3,41 +3,42 @@
 </p>
 
 # PHPlastic
-> The **Modular Engine** (v0.6) – Build your Web App in Seconds with AI
+> The **AI-Driven Modular Engine** (v0.7.0) – Build your Web App in Seconds
 
-PHPlastic è un framework PHP/SQLite minimalista ma potentissimo, in grado di **scrivere sé stesso**. Dotato di un *AI Bootstrap Wizard* integrato alimentato da LLM (Groq / OpenRouter), PHPlastic ti permette di tradurre un prompt testuale ("Voglio un E-commerce", "Crea una To-Do list") direttamente in:
-1. File e viste interattive (`HTML/Tailwind`).
-2. Tabella del Database **SQLite** (`DDL Auto-migrations`).
-3. Moduli REST API Isolati (`Dynamic Routing`).
+PHPlastic is a minimalist yet powerful PHP/SQLite framework designed to **write itself**. Featuring an integrated *AI Bootstrap Wizard* powered by LLMs (Groq / OpenRouter), PHPlastic allows you to translate a simple text prompt ("I want an E-commerce", "Create a To-Do list") directly into:
+1. Interactive files and views (`HTML/Tailwind`).
+2. **SQLite** Database tables (`DDL Auto-migrations`).
+3. Isolated REST API Modules (`Dynamic Routing`).
 
-Senza complicate configurazioni o ORM pesanti, hai il pieno controllo MVC nativo.
+No complicated configurations or heavy ORMs—just full native MVC control.
 
-## 🚀 Installazione
+## 🚀 Installation
 
-1. Clona questa repository.
-2. Assicurati di avere **PHP 8.2+** e avere l'estensione **PDO SQLite** attivata nel tuo `php.ini`.
-3. Avvia il server di sviluppo integrato di PHP puntando alla cartella `public`:
+1. Clone this repository.
+2. Ensure you have **PHP 8.2+** and the **PDO SQLite** extension enabled in your `php.ini`.
+3. Start the built-in PHP development server pointing to the `public` folder:
    ```bash
    php -S localhost:8000 -t public
    ```
-4. Apri `http://localhost:8000` nel browser.
+4. Open `http://localhost:8000` in your browser.
 
-## 🔑 Primo Accesso (Super Admin)
+## 🔑 First Access (Super Admin)
 
-Al primo avvio, naviga verso `/login`:
+On the first run, navigate to `/login`:
 - **Email:** `admin@phplastic.local`
 - **Password:** `password`
 
-## 🧠 Come usare l'AI Wizard
+## 🧠 Using the AI Wizard
 
-Una volta loggato, visita il pannello di controllo e clicca su **"Bootstrap Wizard"**. Inserisci un prompt dettagliato di ciò che vuoi costruire. L'AI genererà un'anteprima dei file e delle query SQL.
-1. Seleziona il modello AI dalle impostazioni (`Impostazioni > Sincronizza modelli`).
-2. Per abilitare l'AI, inserisci la tua API Key di **Groq** nel file `.env` copiando il `.env.example` (se non presente, crealo definendo `GROQ_API_KEY=tua_chiave`).
-3. Dalla pagina del Wizard, scrivi (esempio): *"Crea un modulo API per una gestione di Libri. Ho bisogno della tabella sqlite 'books' e di un REST Controller in app/Modules/Books/BooksController.php"*.
-4. Clicca su **Applica Patch**, e il framework inietterà in tempo reale le rotte, i controller e genererà il database SQLite per te!
+Once logged in, go to the dashboard and click on **"Bootstrap Wizard"**. Enter a detailed prompt of what you want to build. The AI will generate a preview of files and SQL queries.
+1. Select the AI model from settings (`Settings > Sync models from Groq`).
+2. To enable the AI, enter your **Groq** API Key in the `.env` file (copy `.env.example` if it doesn't exist and define `GROQ_API_KEY=your_key`).
+3. In the Wizard page, type (example): *"Create an API module for Book management. I need a 'books' sqlite table and a REST Controller in app/Modules/Books/BooksController.php"*.
+4. Click **Apply Patch**, and the framework will inject routes, controllers, and generate the SQLite database for you in real-time!
 
-## 🧩 Moduli Dinamici (v0.6)
+## 🧩 Dynamic Modules (v0.6)
 
-A partire dalla versione 0.6, PHPlastic supporta l'auto-discovery delle rotte e i Moduli (o Plugin). Metti i tuoi controller all'interno di `app/Modules/{MioModulo}/` e affiancaci un file `routes.php`. Il framework li caricherà in automatico all'avvio senza dover toccare il file di routing centrale!
+Starting from version 0.6, PHPlastic supports route auto-discovery and Modules (Plugins). Place your controllers inside `app/Modules/{MyModule}/` and include a `routes.php` file. The framework will automatically load them at startup without touching the central routing file!
 
-*Buon Coding (Assistito)!*
+*Happy (AI-Assisted) Coding!*
+

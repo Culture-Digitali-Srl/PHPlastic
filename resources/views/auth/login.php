@@ -26,7 +26,7 @@
             <div class="flex items-center justify-between">
                 <button type="submit"
                     class="bg-primary hover:bg-secondary text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full transition-colors duration-200">
-                    Accedi
+                    Sign In
                 </button>
             </div>
         </form>

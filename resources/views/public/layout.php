@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -23,7 +23,7 @@
 
 <body class="bg-slate-50 font-sans antialiased text-gray-800 flex flex-col min-h-screen">
 
-    <!-- Header Pubblico -->
+    <!-- Public Header -->
     <header class="bg-white shadow-sm border-b border-gray-100 py-4 px-6 md:px-12 flex justify-between items-center sticky top-0 z-50">
         <div class="flex items-center space-x-3">
             <img src="<?= \App\Core\View::e(\App\Core\Config::get('app.base_folder')) ?>assets/img/logo.png" alt="PHPlastic Logo" class="h-10 w-auto rounded-lg shadow-sm border border-gray-100">
@@ -31,9 +31,9 @@
             <span class="ml-2 px-2.py-1 bg-blue-100 text-blue-800 text-xs font-bold rounded-full hidden sm:inline-block"> <?= \App\Core\View::e($version ?? '') ?></span>
         </div>
         <nav class="hidden md:flex space-x-6 text-sm font-medium text-gray-600">
-            <a href="#" class="hover:text-blue-600 transition">Documentazione</a>
+            <a href="#" class="hover:text-blue-600 transition">Documentation</a>
             <a href="#" class="hover:text-blue-600 transition">Showcase</a>
-            <a href="<?= \App\Core\View::e(\App\Core\Config::get('app.base_folder')) ?>login" class="bg-blue-600 text-white px-5 py-2 rounded-full hover:bg-blue-700 hover:shadow-md transition">Gestione (Login)</a>
+            <a href="<?= \App\Core\View::e(\App\Core\Config::get('app.base_folder')) ?>login" class="bg-blue-600 text-white px-5 py-2 rounded-full hover:bg-blue-700 hover:shadow-md transition">Admin (Login)</a>
         </nav>
         <div class="md:hidden">
             <a href="<?= \App\Core\View::e(\App\Core\Config::get('app.base_folder')) ?>login" class="text-blue-600 font-bold">Login</a>
@@ -55,27 +55,27 @@
                     <img src="<?= \App\Core\View::e(\App\Core\Config::get('app.base_folder')) ?>assets/img/logo.png" alt="Logo" class="h-6 opacity-80 grayscale hover:grayscale-0 transition">
                     <span class="font-bold text-xl text-white">PHPlastic</span>
                 </div>
-                <p class="text-sm">Il micro-framework duttile, modellabile e indistruttibile. Costruito con PHP nativo e potenziato dall'Intelligenza Artificiale.</p>
+                <p class="text-sm">The versatile, moldable, and indestructible micro-framework. Built with native PHP and powered by Artificial Intelligence.</p>
             </div>
             <div>
-                <h4 class="text-white font-semibold mb-4">Risorse</h4>
+                <h4 class="text-white font-semibold mb-4">Resources</h4>
                 <ul class="space-y-2 text-sm">
                     <li><a href="#" class="hover:text-white transition">GitHub Repo</a></li>
                     <li><a href="#" class="hover:text-white transition">Changelog</a></li>
                 </ul>
             </div>
             <div>
-                <h4 class="text-white font-semibold mb-4">Usi Comuni</h4>
+                <h4 class="text-white font-semibold mb-4">Common Usage</h4>
                 <ul class="space-y-2 text-sm">
-                    <li><a href="#" class="hover:text-white transition">Minisiti Vetrina</a></li>
-                    <li><a href="#" class="hover:text-white transition">Piccoli E-Commerce</a></li>
-                    <li><a href="#" class="hover:text-white transition">Dashboards & ERP</a></li>
+                    <li><a href="#" class="hover:text-white transition">Showcase Sites</a></li>
+                    <li><a href="#" class="hover:text-white transition">Micro E-Commerce</a></li>
+                    <li><a href="#" class="hover:text-white transition">Dashboards & ERPs</a></li>
                 </ul>
             </div>
         </div>
         <div class="max-w-6xl mx-auto px-6 mt-12 pt-8 border-t border-gray-800 text-center text-sm flex flex-col md:flex-row justify-between items-center">
             <p>&copy; <?= date('Y') ?> PHPlastic Framework. Open Source MIT License.</p>
-            <p class="mt-2 md:mt-0 text-xs">Costruisci il tuo futuro, una patch alla volta. 🐘🍌</p>
+            <p class="mt-2 md:mt-0 text-xs">Build your future, one patch at a time. 🐘🍌</p>
         </div>
     </footer>
 

@@ -13,7 +13,7 @@ class SettingsController
 
         View::render('admin.layout', [
             'content' => 'admin.settings.index',
-            'title' => 'Impostazioni Globali | PHPlastic',
+            'title' => 'Global Settings | PHPlastic',
             'settings' => $settings
         ]);
     }
@@ -22,7 +22,7 @@ class SettingsController
     {
         if (!\App\Core\Security::validateCsrfToken($_POST['csrf_token'] ?? '')) {
             http_response_code(403);
-            die("Errore: CSRF Token mancante o invalido.");
+            die("Error: Missing or invalid CSRF Token.");
         }
         $action = $_POST['action'] ?? 'update_settings';
 
@@ -61,7 +61,7 @@ class SettingsController
         $apiKey = \App\Core\Config::get('GROQ_API_KEY') ?? $_ENV['GROQ_API_KEY'] ?? null;
 
         if (!$apiKey) {
-            echo json_encode(['error' => 'API Key Groq non configurata.']);
+            echo json_encode(['error' => 'Groq API Key not configured.']);
             return;
         }
 
@@ -77,7 +77,7 @@ class SettingsController
         curl_close($ch);
 
         if ($httpCode >= 400 || $response === false) {
-            echo json_encode(['error' => 'Errore nel fetch dei modelli da Groq.']);
+            echo json_encode(['error' => 'Error fetching models from Groq.']);
             return;
         }
 
@@ -88,7 +88,7 @@ class SettingsController
     {
         if (!\App\Core\Security::validateCsrfToken($_POST['csrf_token'] ?? '')) {
             http_response_code(403);
-            die("Errore: CSRF Token mancante o invalido.");
+            die("Error: Missing or invalid CSRF Token.");
         }
 
         // Esegue i drop delle tabelle

@@ -1,6 +1,6 @@
 <div class="mb-8">
-    <h1 class="text-3xl font-bold text-gray-800">Benvenuto, <?= \App\Core\View::e($userName ?? 'Admin') ?>!</h1>
-    <p class="text-gray-600 mt-2">Questa è la dashboard principale della tua app "secure-by-default".</p>
+    <h1 class="text-3xl font-bold text-gray-800">Welcome, <?= \App\Core\View::e($userName ?? 'Admin') ?>!</h1>
+    <p class="text-gray-600 mt-2">This is the main dashboard of your "secure-by-default" app.</p>
 </div>
 
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
@@ -9,7 +9,7 @@
     <div class="bg-white rounded-lg shadow p-5 border border-gray-100">
         <div class="flex items-center justify-between hover:scale-105 transition-transform">
             <div>
-                <p class="text-sm font-medium text-gray-500 truncate">Utenti Attivi</p>
+                <p class="text-sm font-medium text-gray-500 truncate">Active Users</p>
                 <p class="text-3xl font-semibold text-gray-800 mt-1">1</p>
             </div>
             <div class="p-3 bg-blue-100 rounded-full text-blue-500">
@@ -39,7 +39,7 @@
     <div class="bg-white rounded-lg shadow p-5 border border-purple-500/20 bg-gradient-to-br from-white to-purple-50">
         <div class="flex items-center justify-between hover:scale-105 transition-transform">
             <div>
-                <p class="text-sm font-medium text-gray-500 truncate">AI Tokens Usati</p>
+                <p class="text-sm font-medium text-gray-500 truncate">AI Tokens Used</p>
                 <p class="text-3xl font-semibold text-purple-700 mt-1">0</p>
             </div>
             <div class="p-3 bg-purple-100 rounded-full text-purple-500">
@@ -52,12 +52,12 @@
 
 </div>
 
-<!-- Recenti -->
+<!-- Recent Activities -->
 <div class="bg-white rounded-lg shadow border border-gray-100">
     <div class="px-6 py-4 border-b border-gray-100">
-        <h3 class="text-lg font-medium text-gray-800">Attività Recenti</h3>
+        <h3 class="text-lg font-medium text-gray-800">Recent Activities</h3>
     </div>
     <div class="p-6">
-        <p class="text-gray-500 text-sm italic">Nessun evento recente. Il sistema di audit log è in costruzione (v0.2).</p>
+        <p class="text-gray-500 text-sm italic">No recent events. The audit log system is functional (v0.6).</p>
     </div>
 </div>

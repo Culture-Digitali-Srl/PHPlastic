@@ -10,7 +10,7 @@ use App\Core\Audit\AuditLogger;
 class AIGenerateController
 {
     /**
-     * Riceve il prompt dal frontend, chiede a Groq l'architettura in un formato strutturato e restituisce il pre-flight.
+     * Receives prompt from frontend, asks Groq for the structured architecture and returns pre-flight results.
      */
     public function generate(): void
     {
@@ -21,27 +21,27 @@ class AIGenerateController
         $prompt = $data['prompt'] ?? '';
 
         if (empty($prompt)) {
-            echo json_encode(['error' => 'Prompt vuoto fornito.']);
+            echo json_encode(['error' => 'Empty prompt provided.']);
             return;
         }
 
         $systemPrompt = "
-        Sei un AI specializzato nello scaffold di codice PHP per il framework nativo 'PHPlastic'.
-        - La root del framework usa PHP nativo e PDO. Non ci sono ORM. Route, View, Controller.
-        - Controller per API o Moduli possono estendere `App\Core\Controller` per usare `\$this->jsonResponse()`.
-        - Le query si fanno con `App\Core\DB`.
+        You are an AI specialized in scaffolding PHP code for the 'PHPlastic' native framework.
+        - The framework root uses native PHP and PDO. There are no ORMs. Route, View, Controller.
+        - Controllers for APIs or Modules can extend `App\Core\Controller` to use `\$this->jsonResponse()`.
+        - Queries are made using `App\Core\DB`.
         
-        **Nuova Architettura a Moduli Dinamici v0.6:**
-        Se l'utente chiede funzionalità complesse (es. E-Commerce, Blog, API), **DEVI** creare i controller all'interno di una cartella di dominio in `app/Modules/{NomeModulo}/`.
-        Esempio: `app/Modules/Shop/ShopController.php`.
-        Se usi la strada dei moduli, DEVI fornire il file `app/Modules/{NomeModulo}/routes.php` nel quale scriverai rotte usando `\$router->get(...)` (e instradandole al tuo Controller col fully qualified namespace).
+        **New Dynamic Module Architecture v0.6:**
+        If the user asks for complex functionality (e.g., E-Commerce, Blog, API), you **MUST** create controllers within a domain folder in `app/Modules/{ModuleName}/`.
+        Example: `app/Modules/Shop/ShopController.php`.
+        If you use the modules path, you MUST provide the `app/Modules/{ModuleName}/routes.php` file in which you will write routes using `\$router->get(...)` (and routing them to your Controller with the fully qualified namespace).
         
-        **Migrazioni DataBase SQL:**
-        Se ravvisi il bisogno di tabelle per il dominio richiesto, devi fornire istruzioni SQLite purissime (DDL `CREATE TABLE IF NOT EXISTS...`). 
-        Usa la chiave speciale `sql_migrations` nell'oggetto radice del tuo output JSON.
+        **SQL Database Migrations:**
+        If you identify the need for tables for the requested domain, you must provide pure SQLite instructions (DDL `CREATE TABLE IF NOT EXISTS...`). 
+        Use the special key `sql_migrations` in the root of your JSON output.
 
-        RISPONDI **ESCLUSIVAMENTE** in puro formato JSON array/object perfetto, senza MAI usare backtick o tag markdown ` ```json `. Restituisci SOLO IL JSON crudo.
-        Struttura richiesta:
+        RESPOND **EXCLUSIVELY** in perfect raw JSON array/object format, NEVER use backticks or markdown tags like ` ```json `. Return ONLY the raw JSON.
+        Required structure:
         {
             \"sql_migrations\": [
                 \"CREATE TABLE IF NOT EXISTS notes (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, content TEXT, created_at DATETIME DEFAULT CURRENT_TIMESTAMP);\"
@@ -58,13 +58,13 @@ class AIGenerateController
             ]
         }
         
-        L'utente ha richiesto: $prompt
+        The user requested: $prompt
         ";
 
         try {
             $client = new GroqDriver();
 
-            // Tentiamo di prelevare dal database settings, altrimenti fallback sicuro
+            // Attempt to fetch from database settings, otherwise safe fallback
             $modelSetting = \App\Core\DB::query("SELECT value FROM settings WHERE key = 'ai_default_model'")->fetch();
             $model = ($modelSetting && !empty($modelSetting['value'])) ? $modelSetting['value'] : 'llama-3.1-8b-instant';
 
@@ -72,7 +72,7 @@ class AIGenerateController
                 ['role' => 'user', 'content' => $systemPrompt]
             ], $model, ['max_tokens' => 2000, 'temperature' => 0.2], 'ai_wizard');
 
-            // Estrazione robusta del JSON array o object
+            // Robust JSON extraction of array or object
             $startArray = strpos($response, '[');
             $startObj = strpos($response, '{');
 
@@ -94,15 +94,15 @@ class AIGenerateController
             $files = json_decode($response, true);
 
             if (!is_array($files)) {
-                echo json_encode(['error' => 'La risposta dell\'AI non era un JSON valido.', 'raw' => $response]);
+                echo json_encode(['error' => 'The AI response was not a valid JSON.', 'raw' => $response]);
                 return;
             }
 
-            // Supporto retrocompatibile (se l'AI dà dritto array o dict)
+            // Backward compatibility support for array or dictionary output
             $extractedFiles = isset($files['files']) ? $files['files'] : (is_array(reset($files)) ? $files : []);
             $sqlMigrations = isset($files['sql_migrations']) ? $files['sql_migrations'] : [];
 
-            // Filtro Pre-flight con PolicyGate
+            // Pre-flight filter with PolicyGate
             $vetted = [];
             $rejected = [];
             foreach ($extractedFiles as $f) {
@@ -115,7 +115,7 @@ class AIGenerateController
                 }
             }
 
-            // Salviamo in sessione per l'eventuale step "Apply"
+            // Save to session for the "Apply" step
             $_SESSION['pending_ai_patch'] = $vetted;
             $_SESSION['pending_ai_sql'] = $sqlMigrations;
 
@@ -128,19 +128,19 @@ class AIGenerateController
                 'rejected_paths' => $rejected
             ]);
         } catch (\Exception $e) {
-            echo json_encode(['error' => "Errore API Groq: " . $e->getMessage()]);
+            echo json_encode(['error' => "Groq API Error: " . $e->getMessage()]);
         }
     }
 
     /**
-     * Applica le modifiche approvate salvate in sessione
+     * Applies approved changes saved in session
      */
     public function apply(): void
     {
         header('Content-Type: application/json');
 
         if (!isset($_SESSION['pending_ai_patch']) || empty($_SESSION['pending_ai_patch'])) {
-            echo json_encode(['error' => 'Nessuna modifica in attesa di approvazione trovata.']);
+            echo json_encode(['error' => 'No pending modifications found for approval.']);
             return;
         }
 

@@ -1,11 +1,11 @@
 <div class="mb-6 flex justify-between items-center">
     <div>
         <h1 class="text-3xl font-bold text-gray-800">Token & Cost Dashboard</h1>
-        <p class="text-gray-600 mt-1">Monitora il consumo delle chiamate AI e i costi stimati.</p>
+        <p class="text-gray-600 mt-1">Monitor AI request consumption and estimated costs.</p>
     </div>
     <a href="<?= \App\Core\View::e(\App\Core\Config::get('app.base_folder')) ?>admin/ai-demo"
         class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded shadow transition font-semibold">
-        + Genera Token Test
+        + Generate Test Token
     </a>
 </div>
 
@@ -19,7 +19,7 @@
 <!-- Metriche Top -->
 <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
     <div class="bg-white rounded-lg shadow p-6 border-t-4 border-purple-500">
-        <h3 class="text-gray-500 text-sm font-medium uppercase tracking-wider mb-2">Richieste AI totali</h3>
+        <h3 class="text-gray-500 text-sm font-medium uppercase tracking-wider mb-2">Total AI Requests</h3>
         <p class="text-3xl font-bold text-gray-800"><?= number_format($stats['total_requests'] ?? 0) ?></p>
     </div>
 
@@ -34,7 +34,7 @@
     </div>
 
     <div class="bg-white rounded-lg shadow p-6 border-t-4 border-red-500">
-        <h3 class="text-gray-500 text-sm font-medium uppercase tracking-wider mb-2">Spesa Stimata ($)</h3>
+        <h3 class="text-gray-500 text-sm font-medium uppercase tracking-wider mb-2">Estimated Spend ($)</h3>
         <p class="text-3xl font-bold text-gray-800">$<?= number_format($stats['total_cost'] ?? 0, 4) ?></p>
     </div>
 </div>
@@ -44,12 +44,12 @@
     <table class="min-w-full divide-y divide-gray-200">
         <thead class="bg-gray-50">
             <tr>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Data</th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Provider / Modello</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Date</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Provider / Model</th>
                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Input / Output</th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Latenza</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Latency</th>
                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Feature</th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Stato</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
             </tr>
         </thead>
         <tbody class="bg-white divide-y divide-gray-200">
@@ -58,7 +58,7 @@
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                         <?= date('d/m/Y H:i:s', strtotime($ev['created_at'])) ?>
                         <?php if ($ev['user_name']): ?>
-                            <div class="text-xs text-indigo-400 mt-1">Utente: <?= \App\Core\View::e($ev['user_name']) ?></div>
+                            <div class="text-xs text-indigo-400 mt-1">User: <?= \App\Core\View::e($ev['user_name']) ?></div>
                         <?php endif; ?>
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
@@ -92,8 +92,8 @@
                             <svg class="w-12 h-12 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
                             </svg>
-                            <span class="text-lg">Nessun evento IA registrato in database.</span>
-                            <span class="text-sm">Usa il bottone in alto per simulare un evento.</span>
+                            <span class="text-lg">No AI events recorded in database.</span>
+                            <span class="text-sm">Use the button above to simulate an event.</span>
                         </div>
                     </td>
                 </tr>

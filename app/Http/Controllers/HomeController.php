@@ -11,8 +11,8 @@ class HomeController
     {
         View::render('public.layout', [
             'content' => 'public.home',
-            'title' => 'PHPlastic - Il Framework Versatile',
-            'version' => Config::get('app.version', 'v0.5.0')
+            'title' => 'PHPlastic - The Versatile Framework',
+            'version' => Config::get('app.version', 'v0.7.0')
         ]);
     }
 }
