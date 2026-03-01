@@ -95,6 +95,14 @@ $router->get('/login', ['App\Http\Controllers\AuthController', 'showLoginForm'])
 $router->post('/login', ['App\Http\Controllers\AuthController', 'login']);
 $router->get('/logout', ['App\Http\Controllers\AuthController', 'logout']);
 
+// Setup Step 4 & completion — accessible post-install via session flag
+$router->get('/setup/step4', ['App\Http\Controllers\SetupController', 'step4']);
+$router->get('/setup/complete', ['App\Http\Controllers\SetupController', 'complete']);
+$router->get('/setup', function () {
+    header('Location: ' . Config::get('app.base_folder') . 'admin');
+    exit;
+});
+
 // ==========================================================
 // PROTECTED ROUTES (ADMIN)
 // ==========================================================
