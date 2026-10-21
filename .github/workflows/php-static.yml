@@ -1,0 +1,52 @@
+name: PHP static checks
+
+on:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  static:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962
+        with:
+          php-version: '8.2'
+          extensions: pdo_sqlite, sqlite3
+          tools: composer:v2
+          coverage: none
+
+      - name: Check PHP version and extensions
+        shell: bash
+        run: |
+          set -euo pipefail
+          php -r 'exit(PHP_MAJOR_VERSION === 8 && PHP_MINOR_VERSION === 2 ? 0 : 1);'
+          php -r 'foreach (["PDO", "pdo_sqlite", "sqlite3"] as $extension) { if (!extension_loaded($extension)) { fwrite(STDERR, "Missing extension: {$extension}\\n"); exit(1); } }'
+
+      - name: Lint tracked PHP files
+        shell: bash
+        run: |
+          set -euo pipefail
+          count=0
+          while IFS= read -r -d '' file; do
+            php -l "$file"
+            count=$((count + 1))
+          done < <(git ls-files -z -- '*.php')
+          if (( count == 0 )); then
+            echo 'No tracked PHP files found.' >&2
+            exit 1
+          fi
+
+      - name: Validate Composer metadata
+        run: composer validate --no-check-publish --no-check-lock
